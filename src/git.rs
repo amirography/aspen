@@ -39,20 +39,20 @@ fn add_all(repo_path: path::PathBuf, commmit_message: String) -> Result<(), AddA
 
     // --- creating a commit --- //
 
-    let Some(Some(wt)) = repo.worktrees()?.iter().next();
+    let hea = repo.head()?;
+    let last_commit = repo.reflog(s)?.get(0)?;
+    println!("{:#?}", last_commit);
 
-    let wt = repo.find_worktree(wt)?;
-
-    let lc = repo.reflog(wt)?.iter().next().unwrap().id_old();
-
-    let l = repo.commit(
-        repo.head()?,
-        &repo.signature()?,
-        &repo.signature()?,
-        &commmit_message,
-        wt,
-        repo.find_commit(lc)?,
-    );
+    // let lc = repo.reflog(wt)?.iter().next().unwrap().id_old();
+    //
+    // let l = repo.commit(
+    //     repo.head()?,
+    //     &repo.signature()?,
+    //     &repo.signature()?,
+    //     &commmit_message,
+    //     wt,
+    //     repo.find_commit(lc)?,
+    // );
 
     Ok(())
 }
