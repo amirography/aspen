@@ -16,9 +16,11 @@ app = true
 lto = "fat"
 
 [dependencies]
+crossterm = "0.25.0"
 git2 = "0.15.0"
 inquire = "0.5.2"
 is_sudo = "0.0.1"
 libc = "0.2.137"
 log = "0.4.17"
+spinners = "4.1.0"
 thiserror = "1.0.37"

@@ -28,8 +28,8 @@
         # For `nix build` & `nix run`:
         defaultPackage = naersk'.buildPackage {
           src = ./.;
-          name = "nixme";
-          version = "0.0.1";
+          pname = "nixme";
+          version = "0.1.0";
 
           inherit buildInputs nativeBuildInputs;
 

@@ -15,6 +15,8 @@ pub fn commands_runner(conf: &config::Config, c: CommandOption) -> Result<(), Co
                         .ok_or(CommandRepoErr::ErrorInMakingString)?
                 ),
             ])
+            .stdout(std::process::Stdio::piped())
+            // .stderr(std::process::Stdio::piped())
             .spawn()
             .map_err(|e| CommandRepoErr::ErrorRunningCommad(e.to_string()))?
             .wait()
@@ -31,6 +33,8 @@ pub fn commands_runner(conf: &config::Config, c: CommandOption) -> Result<(), Co
                         .ok_or(CommandRepoErr::ErrorInMakingString)?
                 ),
             ])
+            .stdout(std::process::Stdio::piped())
+            // .stderr(std::process::Stdio::piped())
             .spawn()
             .map_err(|e| CommandRepoErr::ErrorRunningCommad(e.to_string()))?
             .wait()
