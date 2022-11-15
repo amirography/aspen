@@ -36,7 +36,6 @@
         # all of that work (e.g. via cachix) when running in CI
         cargoArtifacts = craneLib.buildDepsOnly {
           inherit src buildInputs;
-          pname = nixme;
         };
 
         # Build the actual crate itself, reusing the dependency
@@ -56,29 +55,29 @@
           # Note that this is done as a separate derivation so that
           # we can block the CI if there are issues here, but not
           # prevent downstream consumers from building our crate by itself.
-          my-crate-clippy = craneLib.cargoClippy {
-            inherit cargoArtifacts src buildInputs;
-            cargoClippyExtraArgs = "--all-targets -- --deny warnings";
-          };
+          # my-crate-clippy = craneLib.cargoClippy {
+          #   inherit cargoArtifacts src buildInputs;
+          #   cargoClippyExtraArgs = "--all-targets -- --deny warnings";
+          # };
 
-          nixme-doc = craneLib.cargoDoc {
-            inherit cargoArtifacts src;
-          };
+          # nixme-doc = craneLib.cargoDoc {
+          #   inherit cargoArtifacts src;
+          # };
 
           # Check formatting
-          nixme-fmt = craneLib.cargoFmt {
-            inherit src;
-          };
+          # nixme-fmt = craneLib.cargoFmt {
+          #   inherit src;
+          # };
 
 
           # Run tests with cargo-nextest
           # Consider setting `doCheck = false` on `my-crate` if you do not want
           # the tests to run twice
-          nixme-nextest = craneLib.cargoNextest {
-            inherit cargoArtifacts src buildInputs;
-            partitions = 1;
-            partitionType = "count";
-          };
+          # nixme-nextest = craneLib.cargoNextest {
+          #   inherit cargoArtifacts src buildInputs;
+          #   partitions = 1;
+          #   partitionType = "count";
+          # };
         } // lib.optionalAttrs (system == "x86_64-linux") {
           # NB: cargo-tarpaulin only supports x86_64 systems
           # Check code coverage (note: this will not upload coverage anywhere)
