@@ -21,10 +21,9 @@ pub fn commands_runner(conf: &config::Config, c: CommandOption) -> Result<(), Co
                 .output()
                 .map_err(|e| CommandRepoErr::ErrorRunningCommad(e.to_string()))?;
 
-            let e = String::from_utf8_lossy(&child.stderr);
-            println!("{}", e);
-
             if !child.status.success() {
+                let e = String::from_utf8_lossy(&child.stderr);
+                println!("{}", e);
                 return Err(CommandRepoErr::NonZeroStatus);
             };
         }
