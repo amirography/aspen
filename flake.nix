@@ -36,6 +36,7 @@
         # all of that work (e.g. via cachix) when running in CI
         cargoArtifacts = craneLib.buildDepsOnly {
           inherit src buildInputs;
+          pname = nixme;
         };
 
         # Build the actual crate itself, reusing the dependency
