@@ -1,80 +1,107 @@
 {
-  description = "nixos helper for this nixos user"
-  ;
+  description = "smol nix helper, for a smol nix user";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    naersk.url = "github:nmattia/naersk";
-    naersk.inputs.nixpkgs.follows = "nixpkgs";
+
+    crane = {
+      url = "github:ipetkov/crane";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    flake-utils.url = "github:numtide/flake-utils";
+
   };
 
-  outputs = { self, nixpkgs, naersk }:
-    let
-      cargoToml = (builtins.fromTOML (builtins.readFile ./Cargo.toml));
-      supportedSystems = [ "x86_64-linux" ];
-      forAllSystems = f: nixpkgs.lib.genAttrs supportedSystems (system: f system);
-    in
-    {
-      overlay = final: prev: {
-        "${cargoToml.package.name}" = final.callPackage ./. { inherit naersk; };
-      };
+  outputs = { self, nixpkgs, crane, flake-utils, ... }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+        };
 
-      packages = forAllSystems (system:
-        let
-          pkgs = import nixpkgs {
-            inherit system;
-            overlays = [
-              self.overlay
-            ];
+        inherit (pkgs) lib stdenv;
+
+        craneLib = crane.lib.${system};
+        src = craneLib.cleanCargoSource ./.;
+
+        # If one needs to customize the build environment mostly only needed for
+        # macos dependencies or frameworks.
+        buildInputs = [
+          pkgs.openssl
+          pkgs.pkg-config
+        ] ++ lib.optionals stdenv.isDarwin (lib.attrVals [ "libiconv" ] pkgs);
+
+        # Build *just* the cargo dependencies, so we can reuse
+        # all of that work (e.g. via cachix) when running in CI
+        cargoArtifacts = craneLib.buildDepsOnly {
+          inherit src buildInputs;
+        };
+
+        # Build the actual crate itself, reusing the dependency
+        # artifacts from above.
+        nixme = craneLib.buildPackage {
+          inherit cargoArtifacts src buildInputs;
+        };
+      in
+      {
+        checks = {
+          # Build the crate as part of `nix flake check` for convenience
+          inherit nixme;
+
+          # Run clippy (and deny all warnings) on the crate source,
+          # again, resuing the dependency artifacts from above.
+          #
+          # Note that this is done as a separate derivation so that
+          # we can block the CI if there are issues here, but not
+          # prevent downstream consumers from building our crate by itself.
+          my-crate-clippy = craneLib.cargoClippy {
+            inherit cargoArtifacts src buildInputs;
+            cargoClippyExtraArgs = "--all-targets -- --deny warnings";
           };
-        in
-        {
-          "${cargoToml.package.name}" = pkgs."${cargoToml.package.name}";
-        });
 
-
-      defaultPackage = forAllSystems (system: (import nixpkgs {
-        inherit system;
-        overlays = [ self.overlay ];
-      })."${cargoToml.package.name}");
-
-      checks = forAllSystems (system:
-        let
-          pkgs = import nixpkgs {
-            inherit system;
-            overlays = [
-              self.overlay
-            ];
+          nixme-doc = craneLib.cargoDoc {
+            inherit cargoArtifacts src;
           };
-        in
-        {
-          format = pkgs.runCommand "check-format"
-            {
-              buildInputs = with pkgs; [ rustfmt cargo ];
-            } ''
-            ${pkgs.rustfmt}/bin/cargo-fmt fmt --manifest-path ${./.}/Cargo.toml -- --check
-            ${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt --check ${./.}
-            touch $out # it worked!
-          '';
-          "${cargoToml.package.name}" = pkgs."${cargoToml.package.name}";
-        });
-      devShell = forAllSystems (system:
-        let
-          pkgs = import nixpkgs {
-            inherit system;
-            overlays = [ self.overlay ];
+
+          # Check formatting
+          nixme-fmt = craneLib.cargoFmt {
+            inherit src;
           };
-        in
-        pkgs.mkShell {
-          inputsFrom = with pkgs; [
-            pkgs."${cargoToml.package.name}"
+
+
+          # Run tests with cargo-nextest
+          # Consider setting `doCheck = false` on `my-crate` if you do not want
+          # the tests to run twice
+          nixme-nextest = craneLib.cargoNextest {
+            inherit cargoArtifacts src buildInputs;
+            partitions = 1;
+            partitionType = "count";
+          };
+        } // lib.optionalAttrs (system == "x86_64-linux") {
+          # NB: cargo-tarpaulin only supports x86_64 systems
+          # Check code coverage (note: this will not upload coverage anywhere)
+          nixme-coverage = craneLib.cargoTarpaulin {
+            inherit cargoArtifacts src;
+          };
+        };
+
+        packages.default = nixme;
+
+        apps.default = flake-utils.lib.mkApp {
+          drv = nixme;
+        };
+
+        devShells.default = pkgs.mkShell {
+          inputsFrom = builtins.attrValues self.checks;
+
+          # Extra inputs can be added here
+          nativeBuildInputs = with pkgs; [
+            openssl
+            pkg-config
+            cargo
+            rustc
           ];
-          buildInputs = with pkgs; [
-            rustfmt
-            nixpkgs-fmt
-          ];
-          LIBCLANG_PATH = "${pkgs.llvmPackages.libclang.lib}/lib";
-        });
-    };
+        };
+      });
 }
-
