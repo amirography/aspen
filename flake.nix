@@ -40,14 +40,14 @@
 
         # Build the actual crate itself, reusing the dependency
         # artifacts from above.
-        nixme = craneLib.buildPackage {
+        nixmes = craneLib.buildPackage {
           inherit cargoArtifacts src buildInputs;
         };
       in
       {
         checks = {
           # Build the crate as part of `nix flake check` for convenience
-          inherit nixme;
+          inherit nixmes;
 
           # Run clippy (and deny all warnings) on the crate source,
           # again, resuing the dependency artifacts from above.
@@ -81,15 +81,15 @@
         } // lib.optionalAttrs (system == "x86_64-linux") {
           # NB: cargo-tarpaulin only supports x86_64 systems
           # Check code coverage (note: this will not upload coverage anywhere)
-          nixme-coverage = craneLib.cargoTarpaulin {
-            inherit cargoArtifacts src;
-          };
+          # nixme-coverage = craneLib.cargoTarpaulin {
+          #   inherit cargoArtifacts src;
+          # };
         };
 
-        packages.default = nixme;
+        packages.nixme = nixmes;
 
-        apps.default = flake-utils.lib.mkApp {
-          drv = nixme;
+        apps.nixme = flake-utils.lib.mkApp {
+          drv = nixmes;
         };
 
         devShells.default = pkgs.mkShell {
