@@ -44,7 +44,7 @@ naersk.lib."${targetPlatform.system}".buildPackage rec {
   # PROTOC = "${protobuf}/bin/protoc";
   # PROTOC_INCLUDE = "${protobuf}/include";
 
-  name = cargoToml.package.name;
+  pname = cargoToml.package.name;
   version = cargoToml.package.version;
 
   meta = with lib; {
