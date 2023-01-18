@@ -1,5 +1,5 @@
 [package]
-name = "nixme"
+name = "aspen"
 version = "0.1.0"
 edition = "2021"
 description = "personal helper for a personal computer"

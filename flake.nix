@@ -10,44 +10,50 @@
     };
 
     flake-utils.url = "github:numtide/flake-utils";
-
   };
 
-  outputs = { self, nixpkgs, crane, flake-utils, ... }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs {
-          inherit system;
-        };
+  outputs = {
+    self,
+    nixpkgs,
+    crane,
+    flake-utils,
+    ...
+  }:
+    flake-utils.lib.eachDefaultSystem (system: let
+      pkgs = import nixpkgs {
+        inherit system;
+      };
 
-        inherit (pkgs) lib stdenv;
+      inherit (pkgs) lib stdenv;
 
-        craneLib = crane.lib.${system};
-        src = craneLib.cleanCargoSource ./.;
+      craneLib = crane.lib.${system};
+      src = craneLib.cleanCargoSource ./.;
 
-        # If one needs to customize the build environment mostly only needed for
-        # macos dependencies or frameworks.
-        buildInputs = [
+      # If one needs to customize the build environment mostly only needed for
+      # macos dependencies or frameworks.
+      buildInputs =
+        [
           pkgs.openssl
           pkgs.pkg-config
-        ] ++ lib.optionals stdenv.isDarwin (lib.attrVals [ "libiconv" ] pkgs);
+        ]
+        ++ lib.optionals stdenv.isDarwin (lib.attrVals ["libiconv"] pkgs);
 
-        # Build *just* the cargo dependencies, so we can reuse
-        # all of that work (e.g. via cachix) when running in CI
-        cargoArtifacts = craneLib.buildDepsOnly {
-          inherit src buildInputs;
-        };
+      # Build *just* the cargo dependencies, so we can reuse
+      # all of that work (e.g. via cachix) when running in CI
+      cargoArtifacts = craneLib.buildDepsOnly {
+        inherit src buildInputs;
+      };
 
-        # Build the actual crate itself, reusing the dependency
-        # artifacts from above.
-        nixmes = craneLib.buildPackage {
-          inherit cargoArtifacts src buildInputs;
-        };
-      in
-      {
-        checks = {
+      # Build the actual crate itself, reusing the dependency
+      # artifacts from above.
+      aspens = craneLib.buildPackage {
+        inherit cargoArtifacts src buildInputs;
+      };
+    in {
+      checks =
+        {
           # Build the crate as part of `nix flake check` for convenience
-          inherit nixmes;
+          inherit aspens;
 
           # Run clippy (and deny all warnings) on the crate source,
           # again, resuing the dependency artifacts from above.
@@ -60,48 +66,48 @@
           #   cargoClippyExtraArgs = "--all-targets -- --deny warnings";
           # };
 
-          # nixme-doc = craneLib.cargoDoc {
+          # aspen-doc = craneLib.cargoDoc {
           #   inherit cargoArtifacts src;
           # };
 
           # Check formatting
-          # nixme-fmt = craneLib.cargoFmt {
+          # aspen-fmt = craneLib.cargoFmt {
           #   inherit src;
           # };
-
 
           # Run tests with cargo-nextest
           # Consider setting `doCheck = false` on `my-crate` if you do not want
           # the tests to run twice
-          # nixme-nextest = craneLib.cargoNextest {
+          # aspen-nextest = craneLib.cargoNextest {
           #   inherit cargoArtifacts src buildInputs;
           #   partitions = 1;
           #   partitionType = "count";
           # };
-        } // lib.optionalAttrs (system == "x86_64-linux") {
+        }
+        // lib.optionalAttrs (system == "x86_64-linux") {
           # NB: cargo-tarpaulin only supports x86_64 systems
           # Check code coverage (note: this will not upload coverage anywhere)
-          # nixme-coverage = craneLib.cargoTarpaulin {
+          # aspen-coverage = craneLib.cargoTarpaulin {
           #   inherit cargoArtifacts src;
           # };
         };
 
-        packages.nixme = nixmes;
+      packages.aspen = aspens;
 
-        apps.nixme = flake-utils.lib.mkApp {
-          drv = nixmes;
-        };
+      apps.aspen = flake-utils.lib.mkApp {
+        drv = aspens;
+      };
 
-        devShells.default = pkgs.mkShell {
-          inputsFrom = builtins.attrValues self.checks;
+      devShells.default = pkgs.mkShell {
+        inputsFrom = builtins.attrValues self.checks;
 
-          # Extra inputs can be added here
-          nativeBuildInputs = with pkgs; [
-            openssl
-            pkg-config
-            cargo
-            rustc
-          ];
-        };
-      });
+        # Extra inputs can be added here
+        nativeBuildInputs = with pkgs; [
+          openssl
+          pkg-config
+          cargo
+          rustc
+        ];
+      };
+    });
 }

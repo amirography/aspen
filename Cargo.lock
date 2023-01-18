@@ -19,9 +19,7 @@ name = "cc"
 version = "1.0.76"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "76a284da2e6fe2092f2353e51713435363112dfd60030e22add80be333fb928f"
-dependencies = [
- "jobserver",
-]
+dependencies = ["jobserver"]
 
 [[package]]
 name = "cfg-if"
@@ -35,14 +33,14 @@ version = "0.25.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e64e6c0fbe2c17357405f7c758c1ef960fce08bdfb2c03d88d2a18d7e09c4b67"
 dependencies = [
- "bitflags",
- "crossterm_winapi",
- "libc",
- "mio",
- "parking_lot",
- "signal-hook",
- "signal-hook-mio",
- "winapi",
+  "bitflags",
+  "crossterm_winapi",
+  "libc",
+  "mio",
+  "parking_lot",
+  "signal-hook",
+  "signal-hook-mio",
+  "winapi",
 ]
 
 [[package]]
@@ -50,9 +48,7 @@ name = "crossterm_winapi"
 version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2ae1b35a484aa10e07fe0638d02301c5ad24de82d310ccbd2f3693da5f09bf1c"
-dependencies = [
- "winapi",
-]
+dependencies = ["winapi"]
 
 [[package]]
 name = "dyn-clone"
@@ -65,9 +61,7 @@ name = "form_urlencoded"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a9c384f161156f5260c24a097c56119f9be8c798586aecc13afbcbe7b7e26bf8"
-dependencies = [
- "percent-encoding",
-]
+dependencies = ["percent-encoding"]
 
 [[package]]
 name = "git2"
@@ -75,13 +69,13 @@ version = "0.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2994bee4a3a6a51eb90c218523be382fd7ea09b16380b9312e9dbe955ff7c7d1"
 dependencies = [
- "bitflags",
- "libc",
- "libgit2-sys",
- "log",
- "openssl-probe",
- "openssl-sys",
- "url",
+  "bitflags",
+  "libc",
+  "libgit2-sys",
+  "log",
+  "openssl-probe",
+  "openssl-sys",
+  "url",
 ]
 
 [[package]]
@@ -95,10 +89,7 @@ name = "idna"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e14ddfc70884202db2244c223200c204c2bda1bc6e0998d11b5e024d657209e6"
-dependencies = [
- "unicode-bidi",
- "unicode-normalization",
-]
+dependencies = ["unicode-bidi", "unicode-normalization"]
 
 [[package]]
 name = "inquire"
@@ -106,14 +97,14 @@ version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e6055ce38cac9b10ac819ed4a509d92ccbc60808152c19ff9121c98198964272"
 dependencies = [
- "bitflags",
- "crossterm",
- "dyn-clone",
- "lazy_static",
- "newline-converter",
- "thiserror",
- "unicode-segmentation",
- "unicode-width",
+  "bitflags",
+  "crossterm",
+  "dyn-clone",
+  "lazy_static",
+  "newline-converter",
+  "thiserror",
+  "unicode-segmentation",
+  "unicode-width",
 ]
 
 [[package]]
@@ -121,20 +112,14 @@ name = "is_sudo"
 version = "0.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "05935db05cd98fb5b1abd88691f1a6061e1d0bc68f79a6d25e0410a7419de4b9"
-dependencies = [
- "libc",
- "log",
- "winapi",
-]
+dependencies = ["libc", "log", "winapi"]
 
 [[package]]
 name = "jobserver"
 version = "0.1.25"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "068b1ee6743e4d11fb9c6a1e6064b3693a1b600e7f5f5988047d98b3dc9fb90b"
-dependencies = [
- "libc",
-]
+dependencies = ["libc"]
 
 [[package]]
 name = "lazy_static"
@@ -154,12 +139,12 @@ version = "0.14.0+1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "47a00859c70c8a4f7218e6d1cc32875c4b55f6799445b842b0d8ed5e4c3d959b"
 dependencies = [
- "cc",
- "libc",
- "libssh2-sys",
- "libz-sys",
- "openssl-sys",
- "pkg-config",
+  "cc",
+  "libc",
+  "libssh2-sys",
+  "libz-sys",
+  "openssl-sys",
+  "pkg-config",
 ]
 
 [[package]]
@@ -167,45 +152,28 @@ name = "libssh2-sys"
 version = "0.2.23"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b094a36eb4b8b8c8a7b4b8ae43b2944502be3e59cd87687595cf6b0a71b3f4ca"
-dependencies = [
- "cc",
- "libc",
- "libz-sys",
- "openssl-sys",
- "pkg-config",
- "vcpkg",
-]
+dependencies = ["cc", "libc", "libz-sys", "openssl-sys", "pkg-config", "vcpkg"]
 
 [[package]]
 name = "libz-sys"
 version = "1.1.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9702761c3935f8cc2f101793272e202c72b99da8f4224a19ddcf1279a6450bbf"
-dependencies = [
- "cc",
- "libc",
- "pkg-config",
- "vcpkg",
-]
+dependencies = ["cc", "libc", "pkg-config", "vcpkg"]
 
 [[package]]
 name = "lock_api"
 version = "0.4.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "435011366fe56583b16cf956f9df0095b405b82d76425bc8981c0e22e60ec4df"
-dependencies = [
- "autocfg",
- "scopeguard",
-]
+dependencies = ["autocfg", "scopeguard"]
 
 [[package]]
 name = "log"
 version = "0.4.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "abb12e687cfb44aa40f41fc3978ef76448f9b6038cad6aef4259d3c095a2382e"
-dependencies = [
- "cfg-if",
-]
+dependencies = ["cfg-if"]
 
 [[package]]
 name = "maplit"
@@ -218,34 +186,27 @@ name = "mio"
 version = "0.8.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e5d732bc30207a6423068df043e3d02e0735b155ad7ce1a6f76fe2baa5b158de"
-dependencies = [
- "libc",
- "log",
- "wasi",
- "windows-sys",
-]
+dependencies = ["libc", "log", "wasi", "windows-sys"]
 
 [[package]]
 name = "newline-converter"
 version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1f71d09d5c87634207f894c6b31b6a2b2c64ea3bdcf71bd5599fdbbe1600c00f"
-dependencies = [
- "unicode-segmentation",
-]
+dependencies = ["unicode-segmentation"]
 
 [[package]]
-name = "nixme"
+name = "aspen"
 version = "0.1.0"
 dependencies = [
- "crossterm",
- "git2",
- "inquire",
- "is_sudo",
- "libc",
- "log",
- "spinners",
- "thiserror",
+  "crossterm",
+  "git2",
+  "inquire",
+  "is_sudo",
+  "libc",
+  "log",
+  "spinners",
+  "thiserror",
 ]
 
 [[package]]
@@ -259,36 +220,21 @@ name = "openssl-sys"
 version = "0.9.77"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b03b84c3b2d099b81f0953422b4d4ad58761589d0229b5506356afca05a3670a"
-dependencies = [
- "autocfg",
- "cc",
- "libc",
- "pkg-config",
- "vcpkg",
-]
+dependencies = ["autocfg", "cc", "libc", "pkg-config", "vcpkg"]
 
 [[package]]
 name = "parking_lot"
 version = "0.12.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3742b2c103b9f06bc9fff0a37ff4912935851bee6d36f3c02bcc755bcfec228f"
-dependencies = [
- "lock_api",
- "parking_lot_core",
-]
+dependencies = ["lock_api", "parking_lot_core"]
 
 [[package]]
 name = "parking_lot_core"
 version = "0.9.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4dc9e0dc2adc1c69d09143aff38d3d30c5c3f0df0dad82e6d25547af174ebec0"
-dependencies = [
- "cfg-if",
- "libc",
- "redox_syscall",
- "smallvec",
- "windows-sys",
-]
+dependencies = ["cfg-if", "libc", "redox_syscall", "smallvec", "windows-sys"]
 
 [[package]]
 name = "percent-encoding"
@@ -307,27 +253,21 @@ name = "proc-macro2"
 version = "1.0.47"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5ea3d908b0e36316caf9e9e2c4625cdde190a7e6f440d794667ed17a1855e725"
-dependencies = [
- "unicode-ident",
-]
+dependencies = ["unicode-ident"]
 
 [[package]]
 name = "quote"
 version = "1.0.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bbe448f377a7d6961e30f5955f9b8d106c3f5e449d493ee1b125c1d43c2b5179"
-dependencies = [
- "proc-macro2",
-]
+dependencies = ["proc-macro2"]
 
 [[package]]
 name = "redox_syscall"
 version = "0.2.16"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fb5a58c1855b4b6819d59012155603f0b22ad30cad752600aadfcb695265519a"
-dependencies = [
- "bitflags",
-]
+dependencies = ["bitflags"]
 
 [[package]]
 name = "rustversion"
@@ -346,30 +286,21 @@ name = "signal-hook"
 version = "0.3.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a253b5e89e2698464fc26b545c9edceb338e18a89effeeecfea192c3025be29d"
-dependencies = [
- "libc",
- "signal-hook-registry",
-]
+dependencies = ["libc", "signal-hook-registry"]
 
 [[package]]
 name = "signal-hook-mio"
 version = "0.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "29ad2e15f37ec9a6cc544097b78a1ec90001e9f71b81338ca39f430adaca99af"
-dependencies = [
- "libc",
- "mio",
- "signal-hook",
-]
+dependencies = ["libc", "mio", "signal-hook"]
 
 [[package]]
 name = "signal-hook-registry"
 version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e51e73328dc4ac0c7ccbda3a494dfa03df1de2f46018127f60c693f2648455b0"
-dependencies = [
- "libc",
-]
+dependencies = ["libc"]
 
 [[package]]
 name = "smallvec"
@@ -382,73 +313,49 @@ name = "spinners"
 version = "4.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "08615eea740067d9899969bc2891c68a19c315cb1f66640af9a9ecb91b13bcab"
-dependencies = [
- "lazy_static",
- "maplit",
- "strum",
-]
+dependencies = ["lazy_static", "maplit", "strum"]
 
 [[package]]
 name = "strum"
 version = "0.24.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "063e6045c0e62079840579a7e47a355ae92f60eb74daaf156fb1e84ba164e63f"
-dependencies = [
- "strum_macros",
-]
+dependencies = ["strum_macros"]
 
 [[package]]
 name = "strum_macros"
 version = "0.24.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1e385be0d24f186b4ce2f9982191e7101bb737312ad61c1f2f984f34bcf85d59"
-dependencies = [
- "heck",
- "proc-macro2",
- "quote",
- "rustversion",
- "syn",
-]
+dependencies = ["heck", "proc-macro2", "quote", "rustversion", "syn"]
 
 [[package]]
 name = "syn"
 version = "1.0.103"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a864042229133ada95abf3b54fdc62ef5ccabe9515b64717bcb9a1919e59445d"
-dependencies = [
- "proc-macro2",
- "quote",
- "unicode-ident",
-]
+dependencies = ["proc-macro2", "quote", "unicode-ident"]
 
 [[package]]
 name = "thiserror"
 version = "1.0.37"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "10deb33631e3c9018b9baf9dcbbc4f737320d2b576bac10f6aefa048fa407e3e"
-dependencies = [
- "thiserror-impl",
-]
+dependencies = ["thiserror-impl"]
 
 [[package]]
 name = "thiserror-impl"
 version = "1.0.37"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "982d17546b47146b28f7c22e3d08465f6b8903d0ea13c1660d9d84a6e7adcdbb"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn",
-]
+dependencies = ["proc-macro2", "quote", "syn"]
 
 [[package]]
 name = "tinyvec"
 version = "1.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "87cc5ceb3875bb20c2890005a4e226a4651264a5c75edb2421b52861a0a0cb50"
-dependencies = [
- "tinyvec_macros",
-]
+dependencies = ["tinyvec_macros"]
 
 [[package]]
 name = "tinyvec_macros"
@@ -473,9 +380,7 @@ name = "unicode-normalization"
 version = "0.1.22"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5c5713f0fc4b5db668a2ac63cdb7bb4469d8c9fed047b1d0292cc7b0ce2ba921"
-dependencies = [
- "tinyvec",
-]
+dependencies = ["tinyvec"]
 
 [[package]]
 name = "unicode-segmentation"
@@ -494,11 +399,7 @@ name = "url"
 version = "2.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0d68c799ae75762b8c3fe375feb6600ef5602c883c5d21eb51c09f22b83c4643"
-dependencies = [
- "form_urlencoded",
- "idna",
- "percent-encoding",
-]
+dependencies = ["form_urlencoded", "idna", "percent-encoding"]
 
 [[package]]
 name = "vcpkg"
@@ -517,10 +418,7 @@ name = "winapi"
 version = "0.3.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5c839a674fcd7a98952e593242ea400abe93992746761e38641405d28b00f419"
-dependencies = [
- "winapi-i686-pc-windows-gnu",
- "winapi-x86_64-pc-windows-gnu",
-]
+dependencies = ["winapi-i686-pc-windows-gnu", "winapi-x86_64-pc-windows-gnu"]
 
 [[package]]
 name = "winapi-i686-pc-windows-gnu"
@@ -540,13 +438,13 @@ version = "0.42.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5a3e1820f08b8513f676f7ab6c1f99ff312fb97b553d30ff4dd86f9f15728aa7"
 dependencies = [
- "windows_aarch64_gnullvm",
- "windows_aarch64_msvc",
- "windows_i686_gnu",
- "windows_i686_msvc",
- "windows_x86_64_gnu",
- "windows_x86_64_gnullvm",
- "windows_x86_64_msvc",
+  "windows_aarch64_gnullvm",
+  "windows_aarch64_msvc",
+  "windows_i686_gnu",
+  "windows_i686_msvc",
+  "windows_x86_64_gnu",
+  "windows_x86_64_gnullvm",
+  "windows_x86_64_msvc",
 ]
 
 [[package]]

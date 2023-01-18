@@ -48,7 +48,7 @@ impl Config {
             should_switch: true,
             should_proxy: false,
             proxy_port: 1080,
-            nix_flake_path: path::PathBuf::from(h.join("dofi")),
+            nix_flake_path: path::PathBuf::from(h.join("willow")),
         };
         Ok(config)
     }

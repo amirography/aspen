@@ -43,7 +43,7 @@ NIX_HARDENING_ENABLE='fortify stackprotector pic strictoverflow format relro bin
 export NIX_HARDENING_ENABLE
 NIX_INDENT_MAKE='1'
 export NIX_INDENT_MAKE
-NIX_LDFLAGS='-rpath /home/a/kapa/pro/2022-11-12-nixme/nixme/outputs/out/lib64 -rpath /home/a/kapa/pro/2022-11-12-nixme/nixme/outputs/out/lib  -L/nix/store/4mxnw95jcm5a27qk60z7yc0gvxp42b9a-openssl-3.0.7/lib -L/nix/store/954qjhavay3znlir85bhglv4awd4wxmw-rustc-1.64.0/lib -L/nix/store/4mxnw95jcm5a27qk60z7yc0gvxp42b9a-openssl-3.0.7/lib -L/nix/store/954qjhavay3znlir85bhglv4awd4wxmw-rustc-1.64.0/lib'
+NIX_LDFLAGS='-rpath /home/a/kapa/pro/2022-11-12-aspen/aspen/outputs/out/lib64 -rpath /home/a/kapa/pro/2022-11-12-aspen/aspen/outputs/out/lib  -L/nix/store/4mxnw95jcm5a27qk60z7yc0gvxp42b9a-openssl-3.0.7/lib -L/nix/store/954qjhavay3znlir85bhglv4awd4wxmw-rustc-1.64.0/lib -L/nix/store/4mxnw95jcm5a27qk60z7yc0gvxp42b9a-openssl-3.0.7/lib -L/nix/store/954qjhavay3znlir85bhglv4awd4wxmw-rustc-1.64.0/lib'
 export NIX_LDFLAGS
 NIX_LIB64_IN_SELF_RPATH='1'
 NIX_NO_SELF_RPATH='1'
@@ -72,8 +72,6 @@ RANLIB='ranlib'
 export RANLIB
 READELF='readelf'
 export READELF
-SHELL='/nix/store/dsd5gz46hdbdk2rfdimqddhq6m8m8fqs-bash-5.1-p16/bin/bash'
-export SHELL
 SIZE='size'
 export SIZE
 SOURCE_DATE_EPOCH='315532800'
@@ -140,7 +138,7 @@ name='nix-shell'
 export name
 nativeBuildInputs='/nix/store/f95kxwhnr2bazy7nl6wzwjiak02dlp9v-openssl-3.0.7-dev /nix/store/nyjxcn992aqcm00l7i1hw3fjqk6281n7-pkg-config-wrapper-0.29.2 /nix/store/bn8lq1ra0qrhkbhmhrhzfjb6lfndcgia-cargo-1.64.0 /nix/store/954qjhavay3znlir85bhglv4awd4wxmw-rustc-1.64.0'
 export nativeBuildInputs
-out='/home/a/kapa/pro/2022-11-12-nixme/nixme/outputs/out'
+out='/home/a/kapa/pro/2022-11-12-aspen/aspen/outputs/out'
 export out
 outputBin='out'
 outputDev='out'
@@ -168,7 +166,7 @@ declare -a postFixupHooks=('_multioutPropagateDev' )
 declare -a postUnpackHooks=('_updateSourceDateEpochFromSourceRoot' )
 declare -a preConfigureHooks=('_multioutConfig' )
 declare -a preFixupHooks=('_moveToShare' '_multioutDocs' '_multioutDevs' )
-prefix='/home/a/kapa/pro/2022-11-12-nixme/nixme/outputs/out'
+prefix='/home/a/kapa/pro/2022-11-12-aspen/aspen/outputs/out'
 declare -a propagatedBuildDepFiles=('propagated-build-build-deps' 'propagated-native-build-inputs' 'propagated-build-target-deps' )
 propagatedBuildInputs=''
 export propagatedBuildInputs
