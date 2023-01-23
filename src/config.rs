@@ -175,7 +175,7 @@ pub fn get_user_info() -> Result<Config, GetInfoErr> {
 
     c.set_nix_flake_path(
         Text::new("Flake Path:")
-            .with_default("dofi")
+            .with_default("willow")
             .with_validator(|input: &str| match get_home()?.join(input).is_dir() {
                 true => Ok(validator::Validation::Valid),
                 false => Ok(validator::Validation::Invalid(
